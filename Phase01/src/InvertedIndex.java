@@ -19,7 +19,7 @@ public class InvertedIndex {
         dataHashMap = new HashMap<>();
 
         try {
-            this.stopWords = Files.readAllLines(Paths.get("utilities\\stopWords.txt"));
+            this.stopWords = Files.readAllLines(Paths.get("utilities/stopWords.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,41 +58,13 @@ public class InvertedIndex {
                     dataHashMap.put(word,hashSet);
                 }
             }
-
-//            System.out.println(doc.getName());
-//            System.out.println();
-//            System.out.println(result);
-//            System.out.println("_________________________________________");
-            List<String> list = new ArrayList<>();
-            for (String entry : dataHashMap.keySet()) {
-//                System.out.print(entry.getKey()+ " : ");
-//                for (File file : entry.getValue()){
-//                    System.out.print(file.getName()+" ");
-//                }
-//                System.out.println();
-                if (!entry.isEmpty())
-                    list.add(entry);
-                //System.out.println(entry.getKey());
+        }
+        for (Map.Entry<String, HashSet<File>> entry : dataHashMap.entrySet()) {
+            System.out.println();
+            System.out.print(entry.getKey() + "  :  ");
+            for (File f : entry.getValue()){
+                System.out.print(f.getName() + " , ");
             }
-            list.sort(new Comparator<String>() {
-                @Override
-                public int compare(String s, String t1) {
-                    return s.compareTo(t1);
-                }
-            });
-
-            for (String s : list){
-                System.out.println(s);
-                for(byte b : s.getBytes()){
-                    System.out.print(b);
-                }
-
-//                System.out.println(s);
-//                System.out.println(s.length());
-//                System.out.println((int)s.charAt(0));
-                System.out.println("-------");
-            }
-
 
         }
     }
