@@ -1,21 +1,56 @@
 import java.util.*;
 
 public class SearchEngine {
-    private InvertedIndex invertedIndex;
+    private final InvertedIndex invertedIndex;
 
     public SearchEngine(InvertedIndex invertedIndex){
         this.invertedIndex = invertedIndex;
     }
 
     public Set<String> getResult(String query){
-        query = query.toLowerCase();
 
         Set<String> result = new HashSet<>();
+        query = query.toLowerCase();
 
         List<String> andList = new ArrayList<>();
         List<String> orList = new ArrayList<>();
         List<String> excludeList = new ArrayList<>();
 
+        fillListsByQuery(query, andList, orList, excludeList);
+
+        addAndWordsToResult(result, andList);
+        addOrWordsToResult(result, orList);
+        removeExcludeWordsFromResult(result, excludeList);
+
+        if (result.isEmpty()){
+            System.out.println("result not found");
+        }
+        return result;
+    }
+
+    private void removeExcludeWordsFromResult(Set<String> result, List<String> excludeList) {
+        for (String exclude : excludeList){
+            result.removeAll(invertedIndex.getResultListByWord(exclude));
+        }
+    }
+
+    private void addOrWordsToResult(Set<String> result, List<String> orList) {
+        for (String or : orList){
+            result.addAll(invertedIndex.getResultListByWord(or));
+        }
+    }
+
+    private void addAndWordsToResult(Set<String> result, List<String> andList) {
+        for (String and : andList){
+            if (result.isEmpty()){
+                result.addAll(invertedIndex.getResultListByWord(and));
+            }else {
+                result.retainAll(invertedIndex.getResultListByWord(and));
+            }
+        }
+    }
+
+    private void fillListsByQuery(String query, List<String> andList, List<String> orList, List<String> excludeList) {
         for (String word : query.split(" ")){
             if(word.charAt(0)=='+'){
                 orList.add(word.substring(1));
@@ -25,27 +60,6 @@ public class SearchEngine {
                 andList.add(word);
             }
         }
-
-        for (String and : andList){
-            if (result.isEmpty()){
-                result.addAll(invertedIndex.getResultListByWord(and));
-            }else {
-                result.retainAll(invertedIndex.getResultListByWord(and));
-            }
-        }
-
-        for (String or : orList){
-            result.addAll(invertedIndex.getResultListByWord(or));
-        }
-
-        for (String exclude : excludeList){
-            result.removeAll(invertedIndex.getResultListByWord(exclude));
-        }
-
-        if (result.isEmpty()){
-            System.out.println("result not found");
-        }
-        return result;
     }
 
 }
