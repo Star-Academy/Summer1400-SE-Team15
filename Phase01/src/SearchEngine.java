@@ -41,6 +41,9 @@ public class SearchEngine {
             result.removeAll(invertedIndex.getResultListByWord(exclude));
         }
 
+        if (result.isEmpty()){
+            System.out.println("result not found");
+        }
         return result;
     }
 

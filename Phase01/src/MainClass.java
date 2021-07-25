@@ -1,5 +1,4 @@
-import java.util.HashSet;
-import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 public class MainClass {
@@ -8,10 +7,14 @@ public class MainClass {
         InvertedIndex invertedIndex = new InvertedIndex(fileReader.getFilesInFolder());
         SearchEngine searchEngine = new SearchEngine(invertedIndex);
 
-        Set<String> results = searchEngine.getResult("");
-        for (String result : results){
-            System.out.println(result);
+        Scanner scanner = new Scanner(System.in);
+        while (true){
+            Set<String> results = searchEngine.getResult(scanner.nextLine().toLowerCase());
+            for (String result : results){
+                System.out.println(result);
+            }
         }
+
 
     }
 }
