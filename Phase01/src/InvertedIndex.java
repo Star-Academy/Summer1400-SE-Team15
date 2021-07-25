@@ -50,6 +50,7 @@ public class InvertedIndex {
             allWords.removeAll(stopWords);
 
             for (String word : allWords){
+                if (word == "") continue;
                 if (dataHashMap.containsKey(word)){
                     dataHashMap.get(word).add(doc);
                 }else {
