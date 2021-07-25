@@ -50,7 +50,7 @@ public class InvertedIndex {
             allWords.removeAll(stopWords);
 
             for (String word : allWords){
-                if (word == "") continue;
+                if (word.isEmpty()) continue;
                 if (dataHashMap.containsKey(word)){
                     dataHashMap.get(word).add(doc.getName());
                 }else {
@@ -60,20 +60,8 @@ public class InvertedIndex {
                 }
             }
         }
-//        for (Map.Entry<String, HashSet<String>> entry : dataHashMap.entrySet()) {
-//            System.out.println();
-//            System.out.print(entry.getKey() + "  :  ");
-//            for (String f : entry.getValue()){
-//                System.out.print(f + " , ");
-//            }
-//
-//        }
-        return;
     }
 
-//    public HashMap<String, HashSet<File>> getDataHashMap(){
-//        return dataHashMap;
-//    }
     public HashSet<String> getResultListByWord(String word){
         if (!dataHashMap.containsKey(word)) {
             System.out.println("word not found...");

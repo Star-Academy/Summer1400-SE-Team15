@@ -8,6 +8,7 @@ public class SearchEngine {
     }
 
     public Set<String> getResult(String query){
+        query = query.toLowerCase();
 
         Set<String> result = new HashSet<>();
 

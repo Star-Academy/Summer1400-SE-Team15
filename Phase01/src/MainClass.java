@@ -9,12 +9,10 @@ public class MainClass {
 
         Scanner scanner = new Scanner(System.in);
         while (true){
-            Set<String> results = searchEngine.getResult(scanner.nextLine().toLowerCase());
+            Set<String> results = searchEngine.getResult(scanner.nextLine());
             for (String result : results){
                 System.out.println(result);
             }
         }
-
-
     }
 }
