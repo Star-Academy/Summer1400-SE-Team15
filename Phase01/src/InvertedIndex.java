@@ -12,8 +12,8 @@ import static java.lang.System.err;
 
 public class InvertedIndex {
 
-    List<String> stopWords;
-    HashMap<String, HashSet<File>> dataHashMap;
+    private List<String> stopWords;
+    private HashMap<String, HashSet<String>> dataHashMap;
 
     public InvertedIndex(List<File> docs){
         dataHashMap = new HashMap<>();
@@ -52,21 +52,33 @@ public class InvertedIndex {
             for (String word : allWords){
                 if (word == "") continue;
                 if (dataHashMap.containsKey(word)){
-                    dataHashMap.get(word).add(doc);
+                    dataHashMap.get(word).add(doc.getName());
                 }else {
-                    HashSet hashSet = new HashSet<File>();
-                    hashSet.add(doc);
+                    HashSet<String> hashSet = new HashSet();
+                    hashSet.add(doc.getName());
                     dataHashMap.put(word,hashSet);
                 }
             }
         }
-        for (Map.Entry<String, HashSet<File>> entry : dataHashMap.entrySet()) {
-            System.out.println();
-            System.out.print(entry.getKey() + "  :  ");
-            for (File f : entry.getValue()){
-                System.out.print(f.getName() + " , ");
-            }
+//        for (Map.Entry<String, HashSet<String>> entry : dataHashMap.entrySet()) {
+//            System.out.println();
+//            System.out.print(entry.getKey() + "  :  ");
+//            for (String f : entry.getValue()){
+//                System.out.print(f + " , ");
+//            }
+//
+//        }
+        return;
+    }
 
+//    public HashMap<String, HashSet<File>> getDataHashMap(){
+//        return dataHashMap;
+//    }
+    public HashSet<String> getResultListByWord(String word){
+        if (!dataHashMap.containsKey(word)) {
+            System.out.println("word not found...");
+            return new HashSet<>();
         }
+        return dataHashMap.get(word);
     }
 }
