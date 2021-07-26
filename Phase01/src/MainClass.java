@@ -16,6 +16,10 @@ public class MainClass {
             String query = scanner.nextLine();
             if(query.equals("--exit")) break;
             Set<String> results = searchEngine.getResult(query);
+            if(results.isEmpty()){
+                System.out.println("No Result");
+                continue;
+            }
             for (String result : results){
                 System.out.println(result);
             }
