@@ -10,13 +10,13 @@ public class SearchEngine {
     public Set<String> getResult(String query){
 
         Set<String> result = new HashSet<>();
-        query = query.toLowerCase();
+        String modifiedQuery = query.toLowerCase();
 
         List<String> andList = new ArrayList<>();
         List<String> orList = new ArrayList<>();
         List<String> excludeList = new ArrayList<>();
 
-        fillListsByQuery(query, andList, orList, excludeList);
+        fillListsByQuery(modifiedQuery, andList, orList, excludeList);
 
         addAndWordsToResult(result, andList);
         addOrWordsToResult(result, orList);
