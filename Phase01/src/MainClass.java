@@ -3,16 +3,23 @@ import java.util.Set;
 
 public class MainClass {
     public static void main(String[] args) {
-        FileReader fileReader = new FileReader("EnglishData");
-        InvertedIndex invertedIndex = new InvertedIndex(fileReader.getFilesInFolder());
+        final String folderPath = "EnglishData";
+        final String stopWordsPath = "utilities/stopWords.txt";
+
+        FileReader fileReader = new FileReader(folderPath,stopWordsPath);
+        InvertedIndex invertedIndex = new InvertedIndex(fileReader);
         SearchEngine searchEngine = new SearchEngine(invertedIndex);
 
         Scanner scanner = new Scanner(System.in);
+
         while (true){
-            Set<String> results = searchEngine.getResult(scanner.nextLine());
+            String query = scanner.nextLine();
+            if(query.equals("--exit")) break;
+            Set<String> results = searchEngine.getResult(query);
             for (String result : results){
                 System.out.println(result);
             }
         }
+        scanner.close();
     }
 }

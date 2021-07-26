@@ -1,9 +1,3 @@
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -12,50 +6,30 @@ import static java.lang.System.err;
 
 public class InvertedIndex {
 
-    private List<String> stopWords;
     private HashMap<String, HashSet<String>> dataHashMap;
 
-    public InvertedIndex(List<File> docs){
+    public InvertedIndex(FileReader _fileReader){
         dataHashMap = new HashMap<>();
-
-        try {
-            this.stopWords = Files.readAllLines(Paths.get("utilities/stopWords.txt"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        tokenize(docs);
+        tokenize(_fileReader.getFilesContents(),_fileReader.getStopWords());
     }
 
-    private String getContentFromFile(File doc) {
-        String content = "";
 
-        try {
-          content = Files.readString(Path.of(doc.getPath()), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            err.println("error in read files");
-            e.printStackTrace();
-        }
+    private void tokenize(List<Tuple<String,String>> docs,List<String> stopWords){
 
-        return content.toLowerCase().replaceAll("\\W+", " ");
-    }
-
-    private void tokenize(List<File> docs){
-
-        for(File doc : docs) {
+        for(Tuple<String,String> doc : docs) {
             ArrayList<String> allWords =
                     Stream
-                            .of(getContentFromFile(doc).split(" "))
+                            .of(doc.getY().split(" "))
                             .collect(Collectors.toCollection(ArrayList<String>::new));
             allWords.removeAll(stopWords);
 
             for (String word : allWords){
                 if (word.isEmpty()) continue;
                 if (dataHashMap.containsKey(word)){
-                    dataHashMap.get(word).add(doc.getName());
+                    dataHashMap.get(word).add(doc.getX());
                 }else {
                     HashSet<String> hashSet = new HashSet();
-                    hashSet.add(doc.getName());
+                    hashSet.add(doc.getX());
                     dataHashMap.put(word,hashSet);
                 }
             }
