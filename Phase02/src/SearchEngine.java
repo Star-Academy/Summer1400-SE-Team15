@@ -22,9 +22,6 @@ public class SearchEngine {
         addOrWordsToResult(result, orList);
         removeExcludeWordsFromResult(result, excludeList);
 
-        if (result.isEmpty()){
-            System.out.println("result not found");
-        }
         return result;
     }
 

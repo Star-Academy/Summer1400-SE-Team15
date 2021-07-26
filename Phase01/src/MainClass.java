@@ -3,27 +3,18 @@ import java.util.Set;
 
 public class MainClass {
     public static void main(String[] args) {
-        final String folderPath = "EnglishData";
-        final String stopWordsPath = "utilities/stopWords.txt";
-
-        FileReader fileReader = new FileReader(folderPath,stopWordsPath);
-        InvertedIndex invertedIndex = new InvertedIndex(fileReader);
+        FileReader fileReader = new FileReader("EnglishData");
+        InvertedIndex invertedIndex = new InvertedIndex(fileReader.getFilesInFolder());
         SearchEngine searchEngine = new SearchEngine(invertedIndex);
 
         Scanner scanner = new Scanner(System.in);
-
         while (true){
-            String query = scanner.nextLine();
-            if(query.equals("--exit")) break;
-            Set<String> results = searchEngine.getResult(query);
-            if(results.isEmpty()){
-                System.out.println("No Result");
-                continue;
-            }
+            Set<String> results = searchEngine.getResult(scanner.nextLine().toLowerCase());
             for (String result : results){
                 System.out.println(result);
             }
         }
-        scanner.close();
+
+
     }
 }
