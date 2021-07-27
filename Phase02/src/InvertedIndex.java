@@ -43,9 +43,6 @@ public class InvertedIndex {
     }
 
     public HashSet<String> getResultListByWord(String word){
-        if (!dataHashMap.containsKey(word)) {
-            return new HashSet<>();
-        }
-        return dataHashMap.get(word);
+        return dataHashMap.getOrDefault(word,new HashSet<>());
     }
 }

@@ -10,11 +10,11 @@ public class SearchEngine {
     public Set<String> getResult(String query){
 
         Set<String> result = new HashSet<>();
-        String modifiedQuery = query.toLowerCase();
+        String modifiedQuery = getModifiedQuery(query);
 
-        List<String> andList = new ArrayList<>();
-        List<String> orList = new ArrayList<>();
-        List<String> excludeList = new ArrayList<>();
+        final List<String> andList = new ArrayList<>();
+        final List<String> orList = new ArrayList<>();
+        final List<String> excludeList = new ArrayList<>();
 
         fillListsByQuery(modifiedQuery, andList, orList, excludeList);
 
@@ -23,6 +23,10 @@ public class SearchEngine {
         removeExcludeWordsFromResult(result, excludeList);
 
         return result;
+    }
+
+    private String getModifiedQuery(String query) {
+        return query.toLowerCase();
     }
 
     private void removeExcludeWordsFromResult(Set<String> result, List<String> excludeList) {
