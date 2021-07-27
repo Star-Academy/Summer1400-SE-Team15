@@ -6,15 +6,16 @@ import static java.lang.System.err;
 
 public class InvertedIndex {
 
-    private HashMap<String, HashSet<String>> dataHashMap;
+    final private HashMap<String, HashSet<String>> dataHashMap;
 
     public InvertedIndex(FileReader fileReader){
-        dataHashMap = new HashMap<>();
-        tokenize(fileReader.getFilesContents(),fileReader.getStopWords());
+        dataHashMap = tokenize(fileReader.getFilesContents(),fileReader.getStopWords());
     }
 
 
-    private void tokenize(List<FileTuple> docs,List<String> stopWords){
+    private HashMap tokenize(List<FileTuple> docs,List<String> stopWords){
+
+        HashMap<String,HashSet<String>> outputMap = new HashMap<>();
 
         for(FileTuple doc : docs) {
             ArrayList<String> allWords =
@@ -23,15 +24,17 @@ public class InvertedIndex {
                             .collect(Collectors.toCollection(ArrayList<String>::new));
             allWords.removeAll(stopWords);
 
-            for (String word : allWords){
-                if (dataHashMap.containsKey(word)){
-                    dataHashMap.get(word).add(doc.getName());
-                }else {
-                    HashSet<String> hashSet = new HashSet();
-                    hashSet.add(doc.getName());
-                    dataHashMap.put(word,hashSet);
-                }
+            addWordsToMap(outputMap, doc, allWords);
+        }
+        return outputMap;
+    }
+
+    private void addWordsToMap(HashMap<String,HashSet<String>> outputMap, FileTuple doc, ArrayList<String> allWords) {
+        for (String word : allWords){
+            if (!outputMap.containsKey(word)) {
+                outputMap.put(word, new HashSet<String>());
             }
+            outputMap.get(word).add(doc.getName());
         }
     }
 

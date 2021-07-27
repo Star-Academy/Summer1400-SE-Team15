@@ -13,7 +13,7 @@ import static java.lang.System.err;
 
 public class FileReader {
     final File folder;
-    String stopWordsPath;
+    final String stopWordsPath;
     public static final String NON_CHAR_REGEX = "\\W+";
 
     public FileReader(String folderPath , String stopWord){
@@ -34,9 +34,8 @@ public class FileReader {
             return Files.readAllLines(Paths.get(stopWordsPath));
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            return new ArrayList<>();
         }
+        return new ArrayList<>();
     }
 
 

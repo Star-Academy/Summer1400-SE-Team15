@@ -9,21 +9,8 @@ public class MainClass {
         FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
         InvertedIndex invertedIndex = new InvertedIndex(fileReader);
         SearchEngine searchEngine = new SearchEngine(invertedIndex);
+        InputScanner scanner = new InputScanner(searchEngine);
 
-        Scanner scanner = new Scanner(System.in);
-
-        while (true){
-            String query = scanner.nextLine();
-            if(query.equals("--exit")) break;
-            Set<String> results = searchEngine.getResult(query);
-            if(results.isEmpty()){
-                System.out.println("No Result");
-                continue;
-            }
-            for (String result : results){
-                System.out.println(result);
-            }
-        }
-        scanner.close();
+        scanner.ScanInput();
     }
 }
