@@ -8,32 +8,35 @@ public class InvertedIndex {
 
     private HashMap<String, HashSet<String>> dataHashMap;
 
-    public InvertedIndex(FileReader _fileReader){
+    public InvertedIndex(FileReader fileReader){
         dataHashMap = new HashMap<>();
-        tokenize(_fileReader.getFilesContents(),_fileReader.getStopWords());
+        tokenize(fileReader.getFilesContents(),fileReader.getStopWords());
     }
 
 
-    private void tokenize(List<Tuple<String,String>> docs,List<String> stopWords){
+    private void tokenize(List<FileTuple> docs,List<String> stopWords){
 
-        for(Tuple<String,String> doc : docs) {
+        for(FileTuple doc : docs) {
             ArrayList<String> allWords =
                     Stream
-                            .of(doc.getY().split(" "))
+                            .of(getNormalizedString(doc.getData()))
                             .collect(Collectors.toCollection(ArrayList<String>::new));
             allWords.removeAll(stopWords);
 
             for (String word : allWords){
-                if (word.isEmpty()) continue;
                 if (dataHashMap.containsKey(word)){
-                    dataHashMap.get(word).add(doc.getX());
+                    dataHashMap.get(word).add(doc.getName());
                 }else {
                     HashSet<String> hashSet = new HashSet();
-                    hashSet.add(doc.getX());
+                    hashSet.add(doc.getName());
                     dataHashMap.put(word,hashSet);
                 }
             }
         }
+    }
+
+    private String[] getNormalizedString(String doc) {
+        return Arrays.stream(doc.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
     }
 
     public HashSet<String> getResultListByWord(String word){

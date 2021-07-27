@@ -48,7 +48,7 @@ public class SearchEngine {
     }
 
     private void fillListsByQuery(String query, List<String> andList, List<String> orList, List<String> excludeList) {
-        for (String word : query.split(" ")){
+        for (String word : getNormalizedString(query)){
             if(word.charAt(0)=='+'){
                 orList.add(word.substring(1));
             }else if (word.charAt(0)=='-'){
@@ -57,6 +57,10 @@ public class SearchEngine {
                 andList.add(word);
             }
         }
+    }
+
+    private String[] getNormalizedString(String query) {
+        return query.split(" ");
     }
 
 }

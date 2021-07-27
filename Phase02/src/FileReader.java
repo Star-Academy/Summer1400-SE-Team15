@@ -14,17 +14,17 @@ import static java.lang.System.err;
 public class FileReader {
     final File folder;
     String stopWordsPath;
-    public static final String nonCharRegex = "\\W+";
+    public static final String NON_CHAR_REGEX = "\\W+";
 
     public FileReader(String folderPath , String stopWord){
         folder = new File(folderPath);
         stopWordsPath = stopWord;
     }
 
-    public List<Tuple<String,String>> getFilesContents() {
-        List<Tuple<String,String>> filesContent = new ArrayList<>();
+    public List<FileTuple> getFilesContents() {
+        List<FileTuple> filesContent = new ArrayList<>();
         for (final File fileEntry : folder.listFiles()) {
-            filesContent.add(new Tuple(fileEntry.getName(),getContentFromFile(fileEntry)));
+            filesContent.add(new FileTuple(fileEntry.getName(),getContentFromFile(fileEntry)));
         }
         return filesContent;
     }
@@ -55,7 +55,7 @@ public class FileReader {
     }
 
     private String getNormalizedString(String content) {
-        return content.toLowerCase().replaceAll(nonCharRegex, " ");
+        return content.toLowerCase().replaceAll(NON_CHAR_REGEX, " ");
     }
 
 }
