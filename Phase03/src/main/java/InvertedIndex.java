@@ -1,8 +1,10 @@
+package main.java;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.lang.System.err;
+
 
 public class InvertedIndex {
 
@@ -13,7 +15,7 @@ public class InvertedIndex {
     }
 
 
-    private HashMap tokenize(List<FileTuple> docs,List<String> stopWords){
+    private HashMap<String,HashSet<String>> tokenize(List<FileTuple> docs,List<String> stopWords){
 
         HashMap<String,HashSet<String>> outputMap = new HashMap<>();
 
@@ -32,7 +34,7 @@ public class InvertedIndex {
     private void addWordsToMap(HashMap<String,HashSet<String>> outputMap, FileTuple doc, ArrayList<String> allWords) {
         for (String word : allWords){
             if (!outputMap.containsKey(word)) {
-                outputMap.put(word, new HashSet<String>());
+                outputMap.put(word, new HashSet<>());
             }
             outputMap.get(word).add(doc.getName());
         }

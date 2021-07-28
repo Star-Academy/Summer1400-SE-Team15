@@ -1,6 +1,8 @@
+package main.java;
+
 public class FileTuple {
-    private String name;
-    private String data;
+    private final String name;
+    private final String data;
 
     public FileTuple(String name, String data) {
         this.name = name;

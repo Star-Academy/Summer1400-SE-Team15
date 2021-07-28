@@ -1,5 +1,4 @@
-import java.util.Scanner;
-import java.util.Set;
+package main.java;
 
 public class MainClass {
 
