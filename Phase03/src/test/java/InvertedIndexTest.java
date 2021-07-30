@@ -16,7 +16,7 @@ public class InvertedIndexTest {
     static final String STOP_WORDS_PATH = "utilities/stopWords.txt";
 
     @Test
-    public void testTokenize(){
+    public void ShouldTokenizeASample(){
         FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
         InvertedIndex invertedIndex = new InvertedIndex(fileReader);
         HashSet<String> result = invertedIndex.getResultListByWord("poet");

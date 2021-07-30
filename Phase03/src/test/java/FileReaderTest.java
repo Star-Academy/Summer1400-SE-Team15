@@ -20,7 +20,7 @@ public class FileReaderTest {
     static final String WRONG_FOLDER_PATH = "thisIsAWrongPath";
 
     @Test
-    public void testCreatedData(){
+    public void ShouldCreateData(){
         FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
         List<FileTuple> filesContent = fileReader.getFilesContents();
         assertEquals(filesContent.get(0).getName(),"57110","test file is wrong");
@@ -28,21 +28,21 @@ public class FileReaderTest {
     }
 
     @Test
-    public void testShouldCreateStopWordsList(){
+    public void ShouldCreateStopWordsList(){
         FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
         List<String> stopWords = fileReader.getStopWords();
         assertEquals(stopWords.get(0),"a","wrong reading from stop words");
     }
 
     @Test
-    public void testShouldReturnEmptyList(){
+    public void ShouldReturnEmptyList(){
         FileReader fileReader = new FileReader(FOLDER_PATH,WRONG_STOP_WORDS_PATH);
         List<String> stopWords = fileReader.getStopWords();
         assertTrue(stopWords.isEmpty());
     }
 
     @Test
-    public void testShouldReturnEmptyString(){
+    public void ShouldReturnEmptyStringAndPrintError(){
         FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
 
             String content = fileReader.getContentFromFile(new File(WRONG_FOLDER_PATH));

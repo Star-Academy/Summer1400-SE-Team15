@@ -17,7 +17,7 @@ public class SearchEngineTest {
     static final String STOP_WORDS_PATH = "utilities/stopWords.txt";
 
     @Test
-    public void testSearchEngine(){
+    public void ShouldSearchForProperDocs(){
         FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
         InvertedIndex invertedIndex = new InvertedIndex(fileReader);
         SearchEngine searchEngine = new SearchEngine(invertedIndex);
