@@ -2,11 +2,13 @@ package test.java;
 
 import main.java.FileReader;
 import main.java.InvertedIndex;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
 
 import java.util.HashSet;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class InvertedIndexTest {
 
@@ -18,7 +20,8 @@ public class InvertedIndexTest {
         FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
         InvertedIndex invertedIndex = new InvertedIndex(fileReader);
         HashSet<String> result = invertedIndex.getResultListByWord("poet");
-        assertEquals("inverted index is wrong",result.contains("59652"),true);
+        assertEquals(result.contains("59652"),true,"inverted index is wrong");
+
     }
 
 }

@@ -3,12 +3,12 @@ package test.java;
 import main.java.FileReader;
 import main.java.InvertedIndex;
 import main.java.SearchEngine;
-import org.junit.Test;
 
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SearchEngineTest {
 
@@ -21,7 +21,7 @@ public class SearchEngineTest {
         InvertedIndex invertedIndex = new InvertedIndex(fileReader);
         SearchEngine searchEngine = new SearchEngine(invertedIndex);
         Set<String> results = searchEngine.getResult("poet");
-        assertEquals("search engine is wrong",results.contains("59652"),true);
+        assertEquals(results.contains("59652"), true, "search engine is wrong");
     }
 
 }
