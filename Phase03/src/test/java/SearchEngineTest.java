@@ -24,7 +24,7 @@ public class SearchEngineTest {
 
 
         Set<String> results = searchEngine.getResult("poet fool -mother +help");
-        assertEquals(results.size(),2,"size of result is not equal with actual size");
+        assertEquals(2, results.size(),"size of result is not equal with actual size");
         assertTrue(results.contains("59652"),"search engine is wrong");
         assertTrue(results.contains("57110"),"search engine is wrong");
     }

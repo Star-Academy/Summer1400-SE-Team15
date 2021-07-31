@@ -20,7 +20,7 @@ public class InvertedIndexTest {
         FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
         InvertedIndex invertedIndex = new InvertedIndex(fileReader);
         HashSet<String> result = invertedIndex.getResultListByWord("poet");
-        assertEquals(result.contains("59652"),true,"inverted index is wrong");
+        assertEquals(true, result.contains("59652"),"inverted index is wrong");
 
     }
 
