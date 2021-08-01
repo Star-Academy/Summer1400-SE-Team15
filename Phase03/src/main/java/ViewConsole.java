@@ -19,6 +19,7 @@ public class ViewConsole implements IView{
     public void Print(Set<String> output) {
         if(output.isEmpty()){
             System.out.println("No Result");
+            return;
         }
         for (String result : output){
             System.out.println(result);

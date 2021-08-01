@@ -4,10 +4,10 @@ import java.util.Set;
 
 public class InputScanner {
     final private SearchEngine searchEngine;
-    final private ViewConsole console;
+    final private IView console;
 
-    public InputScanner(SearchEngine searchEngine){
-        console = new ViewConsole();
+    public InputScanner(IView viewConsole, SearchEngine searchEngine){
+        this.console = viewConsole;
         this.searchEngine = searchEngine;
     }
     public void ScanInput(){

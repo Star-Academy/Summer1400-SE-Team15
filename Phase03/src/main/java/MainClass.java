@@ -10,7 +10,8 @@ public class MainClass {
         final FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
         final InvertedIndex invertedIndex = new InvertedIndex(fileReader);
         final SearchEngine searchEngine = new SearchEngine(invertedIndex);
-        final InputScanner scanner = new InputScanner(searchEngine);
+        final IView viewConsole = new ViewConsole();
+        final InputScanner scanner = new InputScanner(viewConsole,searchEngine);
 
         scanner.ScanInput();
     }

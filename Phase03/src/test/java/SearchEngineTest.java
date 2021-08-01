@@ -23,7 +23,7 @@ public class SearchEngineTest {
         SearchEngine searchEngine = new SearchEngine(invertedIndex);
 
 
-        Set<String> results = searchEngine.getResult("poet fool -mother +help");
+        Set<String> results = searchEngine.getResult("old friend +problem +doctor -remember");
         assertEquals(2, results.size(),"size of result is not equal with actual size");
         assertTrue(results.contains("59652"),"search engine is wrong");
         assertTrue(results.contains("57110"),"search engine is wrong");
