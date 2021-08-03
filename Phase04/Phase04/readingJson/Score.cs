@@ -2,7 +2,6 @@
 
 namespace readingJson
 {
-
     class Score
     {
         public int StudentNumber { set; get; }

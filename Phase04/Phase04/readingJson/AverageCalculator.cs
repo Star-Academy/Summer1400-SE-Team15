@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace readingJson
@@ -24,7 +22,12 @@ namespace readingJson
             var query = from score in _scores
                          group score.LessonScore by score.StudentNumber into average
                          join student in _students on average.Key equals student.StudentNumber
-                         select new { StudentNumber = student.StudentNumber, FirstName = student.FirstName, LastName = student.LastName, Average = average.Average() };
+                         select new { 
+                             StudentNumber = student.StudentNumber, 
+                             FirstName = student.FirstName, 
+                             LastName = student.LastName, 
+                             Average = average.Average() 
+                         };
 
 
             foreach (var v in query)

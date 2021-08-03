@@ -23,11 +23,8 @@ namespace readingJson
             AverageCalculator averageCalculator = new AverageCalculator(scores, students);
             averageCalculator.GetTopThreeStudents().ForEach((n) => Console.WriteLine(n.StudentNumber + " " + n.FirstName + " " + n.LastName + " " + n.Average));
 
-
             Console.ReadKey();
             
-
-
         }
     }
 }
