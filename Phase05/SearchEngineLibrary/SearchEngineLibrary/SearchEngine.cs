@@ -6,9 +6,9 @@ namespace SearchEngineLibrary
 {
     public class SearchEngine : ISearchEngine
     {
-        private static InvertedIndex _invertedIndex;
+        private static IInvertedIndex _invertedIndex;
         
-        public SearchEngine(InvertedIndex invertedIndex)
+        public SearchEngine(IInvertedIndex invertedIndex)
         {
             _invertedIndex = invertedIndex;
         }
