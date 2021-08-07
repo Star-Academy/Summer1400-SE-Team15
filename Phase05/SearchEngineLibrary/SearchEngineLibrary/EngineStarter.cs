@@ -6,7 +6,7 @@ namespace SearchEngineLibrary
     {
         private readonly IInputScanner _inputScanner;
         private readonly ISearchEngine _searchEngine;
-        private const string _exitQuery = "--exit";
+        private const string ExitQuery = "--exit";
         
 
         public EngineStarter(IInputScanner inputScanner , ISearchEngine searchEngine)
@@ -20,7 +20,7 @@ namespace SearchEngineLibrary
             while (true)
             {
                 string query = _inputScanner.Scan();
-                if (query.Equals(_exitQuery)) break;
+                if (query.Equals(ExitQuery)) break;
                 HashSet<string> results = _searchEngine.GetResult(query);
                 _inputScanner.Print(results);
             }

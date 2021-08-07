@@ -45,6 +45,7 @@ namespace SearchEngineLibrary
                 outputDictionary.TryAdd(word, new HashSet<string>());
                 outputDictionary[word].Add(docName);
             }
+            
         }
 
 
