@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace SearchEngineLibrary
+{
+    public class FileReader : IFileReader
+    {
+        private string NON_CHAR_REGEX = "[^a-zA-Z0-9 -]";
+        private string _folderPath;
+        private string _stopWordsPath;
+
+        public FileReader(string folderPath, string stopWordPath)
+        {
+            _folderPath = folderPath;
+            _stopWordsPath = stopWordPath;
+        }
+
+        public List<Tuple<string, string>> GetFilesContents()
+        {
+            List<Tuple<string, string>> filesContent = new List<Tuple<string, string>>();
+            foreach (string file in Directory.GetFiles(_folderPath))
+            {
+                filesContent.Add(new Tuple<string, string>(Path.GetFileName(file),GetContentFromFile(file)));
+            }
+
+            return filesContent;
+        }
+
+        public List<string> GetStopWords()
+        {
+            return new List<string>(File.ReadAllLines(_stopWordsPath));
+        }
+
+        private string GetContentFromFile(string path)
+        {
+            return GetNormalizedString(File.ReadAllText(path));
+        }
+
+        private string GetNormalizedString(string content)
+        {
+            content = NON_CHAR_REGEX.Replace(content, " ");
+            return content.ToLower();
+        }
+    }
+}
