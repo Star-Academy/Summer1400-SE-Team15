@@ -5,6 +5,6 @@ namespace SearchEngineLibrary
 {
     public interface IInvertedIndex
     {
-        public HashSet<string> GetResultListByWord(string word)
+        public HashSet<string> GetResultListByWord(string word);
     }
 }

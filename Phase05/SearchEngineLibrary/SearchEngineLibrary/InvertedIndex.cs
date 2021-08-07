@@ -22,6 +22,8 @@ namespace SearchEngineLibrary
                 AddWordsToDictionary(output,doc.Item1,RemoveStopWords(doc.Item2,stopWords));
                 
             }
+
+            return output;
         }
 
         private string RemoveStopWords(string input, List<string> stopWords)
