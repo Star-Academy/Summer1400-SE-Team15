@@ -1,6 +1,5 @@
 package test.java;
 
-import main.java.FileReader;
 import main.java.InvertedIndex;
 import main.java.SearchEngine;
 
@@ -18,7 +17,6 @@ public class SearchEngineTest {
     static final String FOLDER_PATH = "EnglishDataTest";
     static final String STOP_WORDS_PATH = "utilities/stopWords.txt";
 
-    //static final FileReader fileReader = mock(FileReader.class);
     static final InvertedIndex invertedIndex = mock(InvertedIndex.class);
 
     @Test
