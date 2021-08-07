@@ -6,9 +6,9 @@ namespace SearchEngineLibrary
 {
     public class FileReader : IFileReader
     {
-        private string NON_CHAR_REGEX = "[^a-zA-Z0-9 -]";
-        private string _folderPath;
-        private string _stopWordsPath;
+        private const string NonCharRegex = "[^a-zA-Z0-9 -]";
+        private readonly string _folderPath;
+        private readonly string _stopWordsPath;
 
         public FileReader(string folderPath, string stopWordPath)
         {
@@ -39,7 +39,7 @@ namespace SearchEngineLibrary
 
         private string GetNormalizedString(string content)
         {
-            content = NON_CHAR_REGEX.Replace(content, " ");
+            content = NonCharRegex.Replace(content, " ");
             return content.ToLower();
         }
     }
