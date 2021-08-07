@@ -36,14 +36,14 @@ namespace SearchEngineLibrary
             return content.ToString();
         }
 
-        private static void AddWordsToDictionary(Dictionary<string, HashSet<string>> outputDictionary, string indexName,
+        private static void AddWordsToDictionary(Dictionary<string, HashSet<string>> outputDictionary, string docName,
             string words)
         {
             var wordsList = GetNormalizedString(words);
             foreach (var word in wordsList)
             {
-                outputDictionary.TryAdd(indexName, new HashSet<string>());
-                outputDictionary[indexName].Add(word);
+                outputDictionary.TryAdd(word, new HashSet<string>());
+                outputDictionary[word].Add(docName);
             }
         }
 

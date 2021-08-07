@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace SearchEngineLibrary
 {
     public class FileReader : IFileReader
     {
-        private const string NonCharRegex = "[^a-zA-Z0-9 -]";
+        private static readonly Regex NonCharRegex = new Regex("[^a-zA-Z0-9 -]");
         private readonly string _folderPath;
         private readonly string _stopWordsPath;
 
@@ -39,7 +40,7 @@ namespace SearchEngineLibrary
 
         private string GetNormalizedString(string content)
         {
-            content = NonCharRegex.Replace(content, " ");
+            var replace = NonCharRegex.Replace(content, " ");
             return content.ToLower();
         }
     }
