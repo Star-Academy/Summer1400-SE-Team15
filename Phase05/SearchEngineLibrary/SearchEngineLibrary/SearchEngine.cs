@@ -15,12 +15,12 @@ namespace SearchEngineLibrary
 
         public HashSet<string> GetResult(string query)
         {
-            HashSet<string> result = new HashSet<string>();
-            string modifiedQuery = GetModifiedQuery(query);
+            var result = new HashSet<string>();
+            var modifiedQuery = GetModifiedQuery(query);
 
-            List<string> andList = new List<string>();
-            List<string> orList = new List<string>();
-            List<string> excludeList = new List<string>();
+            var andList = new List<string>();
+            var orList = new List<string>();
+            var excludeList = new List<string>();
             
             FillListsByQuery(modifiedQuery,andList,orList,excludeList);
             
@@ -31,12 +31,12 @@ namespace SearchEngineLibrary
             return result;
         }
         
-        private string GetModifiedQuery(string query)
+        private static string GetModifiedQuery(string query)
         {
             return query.ToLower();
         }
         
-        private void AddAndWordsToResult(HashSet<string> result, List<string> andList) 
+        private static void AddAndWordsToResult(HashSet<string> result, List<string> andList) 
         {
             foreach (string and in andList){
                 if (!result.Any()){
@@ -47,14 +47,14 @@ namespace SearchEngineLibrary
             }
         }
         
-        private void AddOrWordsToResult(HashSet<string> result, List<string> orList) 
+        private static void AddOrWordsToResult(HashSet<string> result, List<string> orList) 
         {
             foreach (string or in orList){
                 result.UnionWith(_invertedIndex.GetResultListByWord(or));
             }
         }
         
-        private void RemoveExcludeWordsFromResult(HashSet<string> result, List<string> excludeList) {
+        private static void RemoveExcludeWordsFromResult(HashSet<string> result, List<string> excludeList) {
             foreach (string exclude in excludeList){
                 result.ExceptWith(_invertedIndex.GetResultListByWord(exclude));
             }
@@ -62,18 +62,24 @@ namespace SearchEngineLibrary
 
         private void FillListsByQuery(string query, List<string> andList, List<string> orList, List<string> excludeList)
         {
-            foreach (string word in GetNormalizedString(query)){
-                if(word[0]=='+'){
-                    orList.Add(word.Substring(1));
-                }else if (word[0]=='-'){
-                    excludeList.Add(word.Substring(1));
-                }else {
-                    andList.Add(word);
+            foreach (string word in GetNormalizedString(query))
+            {
+                switch (word[0])
+                {
+                    case '+':
+                        orList.Add(word.Substring(1));
+                        break;
+                    case '-':
+                        excludeList.Add(word.Substring(1));
+                        break;
+                    default:
+                        andList.Add(word);
+                        break;
                 }
             }
         }
         
-        private string[] GetNormalizedString(string query)
+        private static string[] GetNormalizedString(string query)
         {
             return query.Split(" ");
         }

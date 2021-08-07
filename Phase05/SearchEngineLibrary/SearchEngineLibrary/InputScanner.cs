@@ -6,6 +6,8 @@ namespace SearchEngineLibrary
 {
     public class InputScanner : IInputScanner
     {
+        private const string NoResult = "No Result";
+
         public string Scan()
         {
             return Console.ReadLine();
@@ -15,7 +17,8 @@ namespace SearchEngineLibrary
         {
             if (!output.Any())
             {
-                Console.WriteLine("No Result");
+                
+                Console.WriteLine(NoResult);
                 return;
             }
             foreach (var value in output)
