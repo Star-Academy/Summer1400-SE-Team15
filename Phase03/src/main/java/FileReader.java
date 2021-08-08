@@ -14,7 +14,7 @@ import static java.lang.System.err;
 
 
 
-public class FileReader {
+public class FileReader implements IFileReader {
     private final File folder;
     private final String stopWordsPath;
     private static final String NON_CHAR_REGEX = "\\W+";
@@ -24,6 +24,7 @@ public class FileReader {
         stopWordsPath = stopWord;
     }
 
+    @Override
     public List<FileTuple> getFilesContents() {
         List<FileTuple> filesContent = new ArrayList<>();
         for (final File fileEntry : folder.listFiles()) {
@@ -32,6 +33,7 @@ public class FileReader {
         return filesContent;
     }
 
+    @Override
     public List<String> getStopWords(){
         try {
             return Files.readAllLines(Paths.get(stopWordsPath));
@@ -43,6 +45,7 @@ public class FileReader {
 
 
 
+    @Override
     public String getContentFromFile(File doc) {
         String content = "";
 

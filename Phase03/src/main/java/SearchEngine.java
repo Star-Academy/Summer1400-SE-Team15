@@ -2,13 +2,14 @@ package main.java;
 
 import java.util.*;
 
-public class SearchEngine {
-    private final InvertedIndex invertedIndex;
+public class SearchEngine implements ISearchEngine {
+    private final IInvertedIndex IInvertedIndex;
 
-    public SearchEngine(InvertedIndex invertedIndex){
-        this.invertedIndex = invertedIndex;
+    public SearchEngine(IInvertedIndex IInvertedIndex){
+        this.IInvertedIndex = IInvertedIndex;
     }
 
+    @Override
     public Set<String> getResult(String query){
 
         Set<String> result = new HashSet<>();
@@ -33,22 +34,22 @@ public class SearchEngine {
 
     private void removeExcludeWordsFromResult(Set<String> result, List<String> excludeList) {
         for (String exclude : excludeList){
-            result.removeAll(invertedIndex.getResultListByWord(exclude));
+            result.removeAll(IInvertedIndex.getResultListByWord(exclude));
         }
     }
 
     private void addOrWordsToResult(Set<String> result, List<String> orList) {
         for (String or : orList){
-            result.addAll(invertedIndex.getResultListByWord(or));
+            result.addAll(IInvertedIndex.getResultListByWord(or));
         }
     }
 
     private void addAndWordsToResult(Set<String> result, List<String> andList) {
         for (String and : andList){
             if (result.isEmpty()){
-                result.addAll(invertedIndex.getResultListByWord(and));
+                result.addAll(IInvertedIndex.getResultListByWord(and));
             }else {
-                result.retainAll(invertedIndex.getResultListByWord(and));
+                result.retainAll(IInvertedIndex.getResultListByWord(and));
             }
         }
     }

@@ -1,13 +1,8 @@
 package test.java;
 
-import main.java.FileReader;
-import main.java.FileTuple;
-import main.java.IView;
-import main.java.InvertedIndex;
+import main.java.*;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.stubbing.Answer;
 
 
 import java.util.ArrayList;
@@ -21,10 +16,7 @@ import static org.mockito.Mockito.when;
 
 public class InvertedIndexTest {
 
-    static final String FOLDER_PATH = "EnglishDataTest";
-    static final String STOP_WORDS_PATH = "utilities/stopWords.txt";
-
-    static final FileReader fileReader = mock(FileReader.class);
+    static final IFileReader I_FILE_READER = mock(FileReader.class);
 
     @Test
     public void ShouldTokenizeASample(){
@@ -37,11 +29,11 @@ public class InvertedIndexTest {
 
         stopWords = Arrays.asList("i", "have", "a", "this", "wouldn't", "to", "be", "the", "as", "is", "not", "an", "if", "of");
 
-        when(fileReader.getFilesContents()).thenReturn(filesContent);
-        when(fileReader.getStopWords()).thenReturn(stopWords);
+        when(I_FILE_READER.getFilesContents()).thenReturn(filesContent);
+        when(I_FILE_READER.getStopWords()).thenReturn(stopWords);
 
-        InvertedIndex invertedIndex = new InvertedIndex(fileReader);
-        HashSet<String> result = invertedIndex.getResultListByWord("poet");
+        IInvertedIndex IInvertedIndex = new InvertedIndex(I_FILE_READER);
+        HashSet<String> result = IInvertedIndex.getResultListByWord("poet");
         assertTrue(result.contains("59652"), "inverted index is wrong");
 
     }

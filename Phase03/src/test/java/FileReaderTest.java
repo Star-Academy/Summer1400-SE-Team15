@@ -3,6 +3,7 @@ package test.java;
 import main.java.FileReader;
 import main.java.FileTuple;
 
+import main.java.IFileReader;
 import org.junit.jupiter.api.Test;
 
 
@@ -20,8 +21,8 @@ public class FileReaderTest {
 
     @Test
     public void ShouldCreateData(){
-        FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
-        List<FileTuple> filesContent = fileReader.getFilesContents();
+        IFileReader IFileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
+        List<FileTuple> filesContent = IFileReader.getFilesContents();
         FileTuple temp = null;
         for (FileTuple file : filesContent){
             if (file.getName().equals("57110")){
@@ -35,23 +36,23 @@ public class FileReaderTest {
 
     @Test
     public void ShouldCreateStopWordsList(){
-        FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
-        List<String> stopWords = fileReader.getStopWords();
+        IFileReader IFileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
+        List<String> stopWords = IFileReader.getStopWords();
         assertEquals("a", stopWords.get(0),"wrong reading from stop words");
     }
 
     @Test
     public void ShouldReturnEmptyList(){
-        FileReader fileReader = new FileReader(FOLDER_PATH,WRONG_STOP_WORDS_PATH);
-        List<String> stopWords = fileReader.getStopWords();
+        IFileReader IFileReader = new FileReader(FOLDER_PATH,WRONG_STOP_WORDS_PATH);
+        List<String> stopWords = IFileReader.getStopWords();
         assertTrue(stopWords.isEmpty());
     }
 
     @Test
     public void ShouldReturnEmptyStringAndPrintError(){
-        FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
+        IFileReader IFileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
 
-            String content = fileReader.getContentFromFile(new File(WRONG_FOLDER_PATH));
+            String content = IFileReader.getContentFromFile(new File(WRONG_FOLDER_PATH));
 
         assertEquals("", content,"content is not empty");
     }

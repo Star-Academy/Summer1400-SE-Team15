@@ -6,12 +6,12 @@ import java.util.stream.Stream;
 
 
 
-public class InvertedIndex {
+public class InvertedIndex implements IInvertedIndex {
 
     final private HashMap<String, HashSet<String>> dataHashMap;
 
-    public InvertedIndex(FileReader fileReader){
-        dataHashMap = tokenize(fileReader.getFilesContents(),fileReader.getStopWords());
+    public InvertedIndex(IFileReader IFileReader){
+        dataHashMap = tokenize(IFileReader.getFilesContents(), IFileReader.getStopWords());
     }
 
 
@@ -20,10 +20,8 @@ public class InvertedIndex {
         HashMap<String,HashSet<String>> outputMap = new HashMap<>();
 
         for(FileTuple doc : docs) {
-            ArrayList<String> allWords =
-                    Stream
-                            .of(getNormalizedString(doc.getData()))
-                            .collect(Collectors.toCollection(ArrayList<String>::new));
+            ArrayList<String> allWords = Stream.of(getNormalizedString(doc.getData()))
+                                                .collect(Collectors.toCollection(ArrayList<String>::new));
             allWords.removeAll(stopWords);
 
             addWordsToMap(outputMap, doc, allWords);
@@ -41,9 +39,12 @@ public class InvertedIndex {
     }
 
     private String[] getNormalizedString(String doc) {
-        return Arrays.stream(doc.split(" ")).filter(e -> e.trim().length() > 0).toArray(String[]::new);
+        return Arrays.stream(doc.split(" "))
+                .filter(e -> e.trim().length() > 0)
+                .toArray(String[]::new);
     }
 
+    @Override
     public HashSet<String> getResultListByWord(String word){
         return dataHashMap.getOrDefault(word,new HashSet<>());
     }

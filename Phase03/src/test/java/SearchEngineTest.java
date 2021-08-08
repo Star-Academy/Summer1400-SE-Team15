@@ -1,5 +1,7 @@
 package test.java;
 
+import main.java.IInvertedIndex;
+import main.java.ISearchEngine;
 import main.java.InvertedIndex;
 import main.java.SearchEngine;
 
@@ -14,33 +16,30 @@ import static org.mockito.Mockito.when;
 
 public class SearchEngineTest {
 
-    static final String FOLDER_PATH = "EnglishDataTest";
-    static final String STOP_WORDS_PATH = "utilities/stopWords.txt";
-
-    static final InvertedIndex invertedIndex = mock(InvertedIndex.class);
+    static final IInvertedIndex I_INVERTED_INDEX = mock(InvertedIndex.class);
 
     @Test
     public void ShouldSearchForProperDocs(){
-        HashSet<String> listOfWord_old = new HashSet<>();
-        listOfWord_old.add("57110");
-        HashSet<String> listOfWord_friend = new HashSet<>();
-        listOfWord_friend.add("57110");
-        HashSet<String> listOfWord_problem = new HashSet<>();
-        listOfWord_problem.add("58045");
-        HashSet<String> listOfWord_doctor = new HashSet<>();
-        listOfWord_doctor.add("59652");
-        HashSet<String> listOfWord_remember = new HashSet<>();
-        listOfWord_remember.add("58045");
+        HashSet<String> listOfDocsHavingWordOld = new HashSet<>();
+        listOfDocsHavingWordOld.add("57110");
+        HashSet<String> listOfDocsHavingWordFriend = new HashSet<>();
+        listOfDocsHavingWordFriend.add("57110");
+        HashSet<String> listOfDocsHavingWordProblem = new HashSet<>();
+        listOfDocsHavingWordProblem.add("58045");
+        HashSet<String> listOfDocsHavingWordDoctor = new HashSet<>();
+        listOfDocsHavingWordDoctor.add("59652");
+        HashSet<String> listOfDocsHavingWordRemember = new HashSet<>();
+        listOfDocsHavingWordRemember.add("58045");
 
-        when(invertedIndex.getResultListByWord("old")).thenReturn(listOfWord_old);
-        when(invertedIndex.getResultListByWord("friend")).thenReturn(listOfWord_friend);
-        when(invertedIndex.getResultListByWord("problem")).thenReturn(listOfWord_problem);
-        when(invertedIndex.getResultListByWord("doctor")).thenReturn(listOfWord_doctor);
-        when(invertedIndex.getResultListByWord("remember")).thenReturn(listOfWord_remember);
+        when(I_INVERTED_INDEX.getResultListByWord("old")).thenReturn(listOfDocsHavingWordOld);
+        when(I_INVERTED_INDEX.getResultListByWord("friend")).thenReturn(listOfDocsHavingWordFriend);
+        when(I_INVERTED_INDEX.getResultListByWord("problem")).thenReturn(listOfDocsHavingWordProblem);
+        when(I_INVERTED_INDEX.getResultListByWord("doctor")).thenReturn(listOfDocsHavingWordDoctor);
+        when(I_INVERTED_INDEX.getResultListByWord("remember")).thenReturn(listOfDocsHavingWordRemember);
 
-        SearchEngine searchEngine = new SearchEngine(invertedIndex);
+        ISearchEngine ISearchEngine = new SearchEngine(I_INVERTED_INDEX);
 
-        Set<String> results = searchEngine.getResult("old friend +problem +doctor -remember");
+        Set<String> results = ISearchEngine.getResult("old friend +problem +doctor -remember");
         assertEquals(2, results.size(),"size of result is not equal with actual size");
         assertTrue(results.contains("59652"),"search engine is wrong");
         assertTrue(results.contains("57110"),"search engine is wrong");

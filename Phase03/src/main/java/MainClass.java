@@ -7,11 +7,11 @@ public class MainClass {
 
     public static void main(String[] args) {
 
-        final FileReader fileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
-        final InvertedIndex invertedIndex = new InvertedIndex(fileReader);
-        final SearchEngine searchEngine = new SearchEngine(invertedIndex);
+        final IFileReader IFileReader = new FileReader(FOLDER_PATH,STOP_WORDS_PATH);
+        final IInvertedIndex IInvertedIndex = new InvertedIndex(IFileReader);
+        final ISearchEngine ISearchEngine = new SearchEngine(IInvertedIndex);
         final IView viewConsole = new ViewConsole();
-        final InputScanner scanner = new InputScanner(viewConsole,searchEngine);
+        final InputScanner scanner = new InputScanner(viewConsole, ISearchEngine);
 
         scanner.ScanInput();
     }
