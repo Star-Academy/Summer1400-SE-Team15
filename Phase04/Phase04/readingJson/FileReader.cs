@@ -2,18 +2,11 @@
 
 namespace readingJson
 {
-    class FileReader
+    internal class FileReader : IFileReader
     {
-        private string _path ;
-
-        public FileReader(string path)
+        public string GetFileContent(string path)
         {
-            this._path = path;
-        }
-
-        public string GetFileContent()
-        {
-            return File.ReadAllText(_path);
+            return File.ReadAllText(path);
         }
 
     }

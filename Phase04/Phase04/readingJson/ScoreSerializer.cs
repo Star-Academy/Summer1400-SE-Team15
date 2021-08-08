@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace readingJson
 {
-    class ScoreSerializer
+    internal class ScoreSerializer : IScoreSerializer
     {
         public List<Score> Deserialize(String jsonString)
         {

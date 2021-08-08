@@ -1,6 +1,6 @@
 ﻿namespace readingJson
 {
-    class Student
+    internal class Student
     {
         public int StudentNumber { set; get; }
         public string FirstName { set; get; }

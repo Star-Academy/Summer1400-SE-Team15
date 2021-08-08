@@ -2,7 +2,7 @@
 
 namespace readingJson
 {
-    class Score
+    internal class Score
     {
         public int StudentNumber { set; get; }
         public string Lesson { set; get; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace readingJson
 {
-    class StudentAverage
+    internal class StudentAverage
     {
         public int StudentNumber { set; get; }
         public string FirstName { set; get; }
