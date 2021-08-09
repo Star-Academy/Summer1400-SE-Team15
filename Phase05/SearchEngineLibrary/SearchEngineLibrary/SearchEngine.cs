@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace SearchEngineLibrary
@@ -49,20 +48,20 @@ namespace SearchEngineLibrary
         
         private static void AddOrWordsToResult(HashSet<string> result, List<string> orList) 
         {
-            foreach (string or in orList){
+            foreach (var or in orList){
                 result.UnionWith(_invertedIndex.GetResultListByWord(or));
             }
         }
         
         private static void RemoveExcludeWordsFromResult(HashSet<string> result, List<string> excludeList) {
-            foreach (string exclude in excludeList){
+            foreach (var exclude in excludeList){
                 result.ExceptWith(_invertedIndex.GetResultListByWord(exclude));
             }
         }
 
         private void FillListsByQuery(string query, List<string> andList, List<string> orList, List<string> excludeList)
         {
-            foreach (string word in GetNormalizedString(query))
+            foreach (var word in GetNormalizedString(query))
             {
                 switch (word[0])
                 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace SearchEngineLibrary
@@ -19,13 +20,9 @@ namespace SearchEngineLibrary
 
         public List<Tuple<string, string>> GetFilesContents()
         {
-            List<Tuple<string, string>> filesContent = new List<Tuple<string, string>>();
-            foreach (string file in Directory.GetFiles(_folderPath))
-            {
-                filesContent.Add(new Tuple<string, string>(Path.GetFileName(file),GetContentFromFile(file)));
-            }
-
-            return filesContent;
+            return Directory.GetFiles(_folderPath)
+                .Select(file => new Tuple<string, string>(Path.GetFileName(file), GetContentFromFile(file)))
+                .ToList();
         }
 
         public List<string> GetStopWords()
@@ -40,7 +37,7 @@ namespace SearchEngineLibrary
 
         private string GetNormalizedString(string content)
         {
-            var replace = NonCharRegex.Replace(content, " ");
+            content = NonCharRegex.Replace(content, " ");
             return content.ToLower();
         }
     }

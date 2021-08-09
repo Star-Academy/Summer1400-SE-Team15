@@ -16,7 +16,7 @@ namespace SearchEngineLibrary
 
         private static Dictionary<string, HashSet<string>> Tokenize(List<Tuple<string, string>> docs, List<string> stopWords)
         {
-            Dictionary<string, HashSet<string>> output = new Dictionary<string, HashSet<string>>();
+            var output = new Dictionary<string, HashSet<string>>();
             foreach (var doc in docs)
             {
                 AddWordsToDictionary(output,doc.Item1,RemoveStopWords(doc.Item2,stopWords));

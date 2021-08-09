@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace SearchEngineLibrary
 {
     public class EngineStarter : IEngineStarter
@@ -19,9 +18,9 @@ namespace SearchEngineLibrary
         {
             while (true)
             {
-                string query = _inputScanner.Scan();
+                var query = _inputScanner.Scan();
                 if (query.Equals(ExitQuery)) break;
-                HashSet<string> results = _searchEngine.GetResult(query);
+                var results = _searchEngine.GetResult(query);
                 _inputScanner.Print(results);
             }
         }

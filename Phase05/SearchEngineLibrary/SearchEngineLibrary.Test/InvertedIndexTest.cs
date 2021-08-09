@@ -6,15 +6,12 @@ namespace SearchEngineLibrary.Test
 {
     public class InvertedIndexTest
     {
-        private readonly string _folderPath = "../../../EnglishDataTest";
-        private readonly string _stopWordsPath = "../../../utilities/stopWords.txt";
-
         [Fact]
         public void ShouldTokenizeASample()
         {
             var fileReader= new Mock<IFileReader>();
-            List<Tuple<string, string>> filesContent = new List<Tuple<string, string>>();
-            List<string> stopWords = new List<string>()
+            var filesContent = new List<Tuple<string, string>>();
+            var stopWords = new List<string>()
             {
                 "i", 
                 "have",
@@ -40,12 +37,8 @@ namespace SearchEngineLibrary.Test
             fileReader.Setup(x => x.GetStopWords()).Returns(stopWords);
 
             IInvertedIndex invertedIndex = new InvertedIndex(fileReader.Object);
-            HashSet<string> result = invertedIndex.GetResultListByWord("poet");
+            var result = invertedIndex.GetResultListByWord("poet");
             Assert.Contains("59652", result);
-
-
-
-
         }
         
     }

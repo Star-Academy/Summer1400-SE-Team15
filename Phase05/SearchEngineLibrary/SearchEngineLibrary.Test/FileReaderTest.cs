@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace SearchEngineLibrary.Test
@@ -12,16 +11,9 @@ namespace SearchEngineLibrary.Test
         public void ShouldCreateData()
         {
             IFileReader fileReader = new FileReader(_folderPath,_stopWordsPath);
-            List<Tuple<string, string>> filesContent = fileReader.GetFilesContents();
-            Tuple<string, string> temp = null;
-            foreach (var file in filesContent)
-            {
-                if (file.Item1.Equals("57110"))
-                {
-                    temp = file;
-                    break;
-                }
-            }
+            var filesContent = fileReader.GetFilesContents();
+            var temp = filesContent
+                                        .FirstOrDefault(file => file.Item1.Equals("57110"));
             Assert.NotNull(temp);
             Assert.Equal("i have a 42 yr old male friend",temp.Item2);
         }
@@ -30,7 +22,7 @@ namespace SearchEngineLibrary.Test
         public void ShouldCreateStopWordsList()
         {
             IFileReader fileReader = new FileReader(_folderPath, _stopWordsPath);
-            List<string> stopWords = fileReader.GetStopWords();
+            var stopWords = fileReader.GetStopWords();
             Assert.Equal("a",stopWords[0]);
         }
         
