@@ -5,7 +5,7 @@ namespace SearchEngineLibrary
 {
     public interface IFileReader
     {
-        public List<Tuple<string, string>> GetFilesContents();
-        public List<string> GetStopWords();
+        List<Tuple<string, string>> GetFilesContents();
+        List<string> GetStopWords();
     }
 }

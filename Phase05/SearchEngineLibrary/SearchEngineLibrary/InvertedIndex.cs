@@ -42,8 +42,13 @@ namespace SearchEngineLibrary
             var wordsList = GetNormalizedString(words);
             foreach (var word in wordsList)
             {
-                outputDictionary.TryAdd(word, new HashSet<string>());
-                outputDictionary[word].Add(docName);
+                if (!outputDictionary.TryGetValue(word, out var postingList))
+                {
+                    postingList = new HashSet<string>();
+                    outputDictionary.Add(word, postingList);
+                }
+                postingList.Add(docName);
+                
             }
             
         }

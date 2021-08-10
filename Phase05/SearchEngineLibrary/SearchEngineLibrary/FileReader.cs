@@ -37,8 +37,8 @@ namespace SearchEngineLibrary
 
         private string GetNormalizedString(string content)
         {
-            content = NonCharRegex.Replace(content, " ");
-            return content.ToLower();
+            var replace = NonCharRegex.Replace(content, " ");
+            return replace.ToLower();
         }
     }
 }
