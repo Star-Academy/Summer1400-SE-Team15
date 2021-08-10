@@ -10,8 +10,8 @@ public class InvertedIndex implements IInvertedIndex {
 
     final private HashMap<String, HashSet<String>> dataHashMap;
 
-    public InvertedIndex(IFileReader IFileReader){
-        dataHashMap = tokenize(IFileReader.getFilesContents(), IFileReader.getStopWords());
+    public InvertedIndex(IFileReader fileReader){
+        dataHashMap = tokenize(fileReader.getFilesContents(), fileReader.getStopWords());
     }
 
 

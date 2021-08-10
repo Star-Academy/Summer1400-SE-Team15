@@ -3,10 +3,10 @@ package main.java;
 import java.util.*;
 
 public class SearchEngine implements ISearchEngine {
-    private final IInvertedIndex IInvertedIndex;
+    private final IInvertedIndex invertedIndex;
 
-    public SearchEngine(IInvertedIndex IInvertedIndex){
-        this.IInvertedIndex = IInvertedIndex;
+    public SearchEngine(IInvertedIndex invertedIndex){
+        this.invertedIndex = invertedIndex;
     }
 
     @Override
@@ -34,22 +34,22 @@ public class SearchEngine implements ISearchEngine {
 
     private void removeExcludeWordsFromResult(Set<String> result, List<String> excludeList) {
         for (String exclude : excludeList){
-            result.removeAll(IInvertedIndex.getResultListByWord(exclude));
+            result.removeAll(invertedIndex.getResultListByWord(exclude));
         }
     }
 
     private void addOrWordsToResult(Set<String> result, List<String> orList) {
         for (String or : orList){
-            result.addAll(IInvertedIndex.getResultListByWord(or));
+            result.addAll(invertedIndex.getResultListByWord(or));
         }
     }
 
     private void addAndWordsToResult(Set<String> result, List<String> andList) {
         for (String and : andList){
             if (result.isEmpty()){
-                result.addAll(IInvertedIndex.getResultListByWord(and));
+                result.addAll(invertedIndex.getResultListByWord(and));
             }else {
-                result.retainAll(IInvertedIndex.getResultListByWord(and));
+                result.retainAll(invertedIndex.getResultListByWord(and));
             }
         }
     }
