@@ -1,4 +1,7 @@
+using System.IO;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace SearchEngineEfCore
 {
@@ -8,8 +11,13 @@ namespace SearchEngineEfCore
         public DbSet<Posting> Postings { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        { 
-            optionsBuilder.UseSqlServer(@"Server=.;Database=SearchEngineDB;User Id=sa;Password=YourPassword");
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("config.json", optional: false)
+                .Build();
+            
+            optionsBuilder.UseSqlServer(configuration["standard"]);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
-
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 namespace SearchEngineEfCore
 {
     class Program
