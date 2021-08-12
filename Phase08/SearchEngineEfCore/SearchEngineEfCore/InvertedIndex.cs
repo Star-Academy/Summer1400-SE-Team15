@@ -32,19 +32,14 @@ namespace SearchEngineEfCore
         private static void AddWordsToDatabase(string docName, string words, HashSet<string> stopWords)
         {
             var wordsList = RemoveStopWords(words,stopWords);
-            var db = new DatabaseFunctions();
-            foreach (var word in wordsList)
-            {
-                _database.InsertToWords(word);
-                _database.InsertToPostings(docName,word);
-            }
-            
+            _database.InsertWordsOfDoc(docName,wordsList);
         }
 
 
         private static List<string> GetNormalizedString(string input)
         {
             return input.Split(' ')
+                .Distinct()
                 .Where(x => !string.IsNullOrEmpty(x))
                 .ToList();
         }
