@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SearchEngineEfCore
 {
-    public class DatabaseClass : IDatabase
+    public class DatabaseFunctions : IDatabase
     {
         private int QueryWord(string word)
         {

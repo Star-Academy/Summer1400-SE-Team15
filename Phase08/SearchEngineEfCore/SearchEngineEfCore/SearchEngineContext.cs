@@ -12,18 +12,17 @@ namespace SearchEngineEfCore
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = GetConnectionString("windows");
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(GetConnectionString());
         }
 
-        private string GetConnectionString(string operationSystem)
+        private string GetConnectionString()
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(GetProjectBasePath())
                 .AddJsonFile("config.json", optional: false)
                 .Build();
             
-            return configuration[operationSystem];
+            return configuration[configuration["methode"]];
         }
 
         private string GetProjectBasePath()

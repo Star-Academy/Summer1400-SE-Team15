@@ -7,7 +7,7 @@
         static void Main(string[] args)
         {
             IFileReader fileReader = new FileReader(_folderPath, _stopWordsPath);
-            IDatabase database = new DatabaseClass();
+            IDatabase database = new DatabaseFunctions();
             IInvertedIndex invertedIndex = new InvertedIndex(fileReader, database);
             IInputScanner inputScanner = new InputScanner();
             ISearchEngine searchEngine = new SearchEngine(invertedIndex);

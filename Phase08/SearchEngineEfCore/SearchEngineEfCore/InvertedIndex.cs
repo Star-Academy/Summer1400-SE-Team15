@@ -32,7 +32,7 @@ namespace SearchEngineEfCore
         private static void AddWordsToDatabase(string docName, string words, HashSet<string> stopWords)
         {
             var wordsList = RemoveStopWords(words,stopWords);
-            var db = new DatabaseClass();
+            var db = new DatabaseFunctions();
             foreach (var word in wordsList)
             {
                 _database.InsertToWords(word);
