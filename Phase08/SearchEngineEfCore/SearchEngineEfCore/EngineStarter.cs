@@ -1,5 +1,4 @@
-﻿
-namespace SearchEngineEfCore
+﻿namespace SearchEngineEfCore
 {
     public class EngineStarter : IEngineStarter
     {

@@ -6,7 +6,7 @@ namespace SearchEngineEfCore
 {
     public class DatabaseClass : IDatabase
     {
-        public int QueryWord(string word)
+        private int QueryWord(string word)
         {
             using (var context = new SearchEngineContext())
             {
@@ -16,7 +16,7 @@ namespace SearchEngineEfCore
             }
         }
 
-        public int QueryPosting(string docName)
+        private int QueryPosting(string docName)
         {
             using (var context = new SearchEngineContext())
             {
@@ -24,11 +24,6 @@ namespace SearchEngineEfCore
                     .SingleOrDefault(p => p.DocName == docName);
                 return result?.Id ?? -1;
             }
-        }
-
-        public List<WordModel> QueryListOfWords(string docName)
-        {
-            throw new System.NotImplementedException();
         }
 
         public List<Posting> QueryListOfPostings(string word)

@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-namespace SearchEngineEfCore
+﻿namespace SearchEngineEfCore
 {
     class Program
     {
@@ -16,7 +13,7 @@ namespace SearchEngineEfCore
             ISearchEngine searchEngine = new SearchEngine(invertedIndex);
             IEngineStarter engineStarter = new EngineStarter(inputScanner, searchEngine);
             engineStarter.Start();
-
+            
         }
     }
 }
