@@ -22,7 +22,7 @@ namespace SearchEngineEfCore
                 .AddJsonFile("config.json", optional: false)
                 .Build();
             
-            return configuration[configuration["methode"]];
+            return configuration[configuration["method"]];
         }
 
         private string GetProjectBasePath()
