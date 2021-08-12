@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,29 +14,29 @@ namespace SearchEngineEfCore
         {
             var connectionString = GetConnectionString("windows");
             optionsBuilder.UseSqlServer(connectionString);
-            //optionsBuilder.UseSqlServer("Server=.;Database=SearchEngineDB;Trusted_Connection=True");
         }
 
         private string GetConnectionString(string operationSystem)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(getProjectBasePath(operationSystem))
+                .SetBasePath(GetProjectBasePath())
                 .AddJsonFile("config.json", optional: false)
                 .Build();
             
             return configuration[operationSystem];
         }
 
-        private string getProjectBasePath(string operationSystem)
+        private string GetProjectBasePath()
         {
-            if (operationSystem.Equals("windows"))
+            var projectBasePath = Directory.GetCurrentDirectory();
+            var length = projectBasePath.LastIndexOf("bin", StringComparison.Ordinal);
+            
+            if (length != -1)
             {
-                return Directory.GetParent(Directory.GetCurrentDirectory())?.Parent.Parent.FullName;
-            }else
-            {
-                return Directory.GetCurrentDirectory();
+                projectBasePath = projectBasePath.Substring(0, length);
             }
 
+            return projectBasePath;
         }
     }
 }
