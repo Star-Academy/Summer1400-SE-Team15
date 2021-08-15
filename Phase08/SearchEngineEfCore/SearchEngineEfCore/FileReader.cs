@@ -18,10 +18,10 @@ namespace SearchEngineEfCore
             _stopWordsPath = stopWordPath;
         }
 
-        public List<Tuple<string, string>> GetFilesContents()
+        public List<FileTuple> GetFilesContents()
         {
             return Directory.GetFiles(_folderPath)
-                .Select(file => new Tuple<string, string>(Path.GetFileName(file), GetContentFromFile(file)))
+                .Select(file => new FileTuple(Path.GetFileName(file), GetContentFromFile(file)))
                 .ToList();
         }
 

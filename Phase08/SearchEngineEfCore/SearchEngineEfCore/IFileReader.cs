@@ -5,7 +5,7 @@ namespace SearchEngineEfCore
 {
     public interface IFileReader
     {
-        List<Tuple<string, string>> GetFilesContents();
+        List<FileTuple> GetFilesContents();
         HashSet<string> GetStopWords();
     }
 }

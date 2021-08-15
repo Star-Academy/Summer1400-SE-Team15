@@ -13,11 +13,11 @@ namespace SearchEngineEfCore
             Tokenize(fileReader.GetFilesContents(), fileReader.GetStopWords());
         }
 
-        private static void Tokenize(List<Tuple<string, string>> docs, HashSet<string> stopWords)
+        private static void Tokenize(List<FileTuple> docs, HashSet<string> stopWords)
         {
             foreach (var doc in docs)
             {
-                AddWordsToDatabase(doc.Item1,doc.Item2,stopWords);
+                AddWordsToDatabase(doc.DocName,doc.DocContent,stopWords);
             }
         }
 
