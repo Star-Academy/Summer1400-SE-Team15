@@ -1,0 +1,5 @@
+{
+  "method" : "standard",
+  "standard" : "Server=.;Database=SearchEngineDB;User Id=sa;Password=YourPassword",
+  "windows" : "Server=.;Database=SearchEngineDB;Trusted_Connection=True"
+}
