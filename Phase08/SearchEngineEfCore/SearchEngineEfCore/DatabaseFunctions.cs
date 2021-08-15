@@ -33,35 +33,51 @@ namespace SearchEngineEfCore
                     context.Words.Add(queryWord);
                 }
 
-                context.SaveChanges();
-
-                result.AddRange(words
-                    .Select(word => context.Words
-                        .SingleOrDefault(w => w.Word == word)));
+                try
+                {
+                    context.SaveChanges();
+                    result.AddRange(words
+                        .Select(word => context.Words
+                            .SingleOrDefault(w => w.Word == word)));
+    
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
             
             return result;
         }
 
-        public void InsertWordsOfDoc(string docName, List<string> words)
+        public bool InsertWordsOfDoc(string docName, List<string> words)
         {
             var temp = CreateWordModels(words);
             using (var context = new SearchEngineContext())
             {
                 var posting = context.Postings
                     .SingleOrDefault(p => p.DocName == docName);
-                if (posting != null) return;
+                if (posting != null) return false;
                 posting = new Posting()
                 {
                     DocName = docName
                 };
                 context.Postings.Add(posting);
-                context.SaveChanges();
-                posting = context.Postings
-                    .Include(p => p.Words)
-                    .SingleOrDefault(p => p.DocName == docName);
-                if (posting != null) posting.Words = temp;
-                context.SaveChanges();
+                try
+                {
+                    context.SaveChanges();
+                    posting = context.Postings
+                        .Include(p => p.Words)
+                        .SingleOrDefault(p => p.DocName == docName);
+                    if (posting != null) posting.Words = CreateWordModels(words);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return false;
+                }
             }
         }
     }
