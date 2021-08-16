@@ -19,13 +19,14 @@ namespace SearchEngineApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IInvertedIndex, InvertedIndex>();
-            services.AddSingleton<IDatabase, DatabaseFunctions>();
-            services.AddSingleton<ISearchEngine, SearchEngine>();
+            services.AddDbContext<SearchEngineContext>();
+            services.AddScoped<IInvertedIndex, InvertedIndex>();
+            services.AddScoped<IDatabase, DatabaseFunctions>();
+            services.AddScoped<ISearchEngine, SearchEngine>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Asp.net_Core_Test", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SearchEngineApi", Version = "v1" });
             });
         }
 
@@ -36,7 +37,7 @@ namespace SearchEngineApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Asp.net_Core_Test v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SearchEngineApi v1"));
             }
 
             app.UseHttpsRedirection();
